@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Play-to-Earn Reward Apps — Deep Research Report (May 2026)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --border: #e4e7ec;
+    --text: #1b1f2a;
+    --text-mid: #4b5266;
+    --text-light: #8892a6;
+    --accent: #3d5afe;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .header {
+    background: linear-gradient(135deg, #1b1f2a 0%, #232946 60%, #2a3a5c 100%);
+    color: #fff; padding: 40px 24px 34px;
+  }
+  .header-inner { max-width: 920px; margin: 0 auto; }
+  .header .kicker { font-size: 10px; text-transform: uppercase; letter-spacing: 3.5px; color: #7b8bb5; margin-bottom: 8px; font-weight: 500; }
+  .header h1 { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 800; line-height: 1.2; margin-bottom: 10px; }
+  .header p { font-size: 14px; color: #9ba5be; max-width: 600px; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  /* Comparison Table */
+  .comp-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; overflow-x: auto; }
+  .comp-wrap h2 { font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  thead th { text-align: left; padding: 8px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--text-light); border-bottom: 2px solid var(--border); white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid #f1f4f8; cursor: pointer; transition: background .15s; }
+  tbody tr:hover { background: #f0f4ff; }
+  tbody td { padding: 10px 8px; color: var(--text-mid); white-space: nowrap; }
+  tbody td:first-child { font-weight: 600; color: var(--text); }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+  .comp-hint { font-size: 11px; color: var(--text-light); margin-top: 10px; }
+
+  /* Cards Grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .card { text-align: left; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; cursor: pointer; transition: all .2s; }
+  .card:hover { border-color: #c5cee0; box-shadow: 0 2px 12px rgba(0,0,0,.04); }
+  .card.active { border-width: 2px; }
+  .card-top { display: flex; justify-content: space-between; align-items: center; }
+  .card-name { font-size: 16px; font-weight: 700; }
+  .card-tag { font-size: 11px; color: var(--text-light); margin-top: 4px; line-height: 1.4; }
+  .card-badges { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+
+  /* Detail Panel */
+  .detail { background: var(--card); border-radius: 14px; overflow: hidden; margin-bottom: 24px; border: 1px solid var(--border); display: none; }
+  .detail.open { display: block; animation: slideIn .3s ease; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .detail-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .detail-header h2 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 800; }
+  .detail-header .subtitle { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+  .close-btn { background: #f1f5f9; border: none; border-radius: 6px; padding: 6px 14px; cursor: pointer; font-size: 12px; color: var(--text-light); }
+  .close-btn:hover { background: #e2e8f0; }
+
+  .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: #f1f4f8; }
+  .meta-cell { background: var(--card); padding: 12px 18px; }
+  .meta-cell .label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; color: var(--text-light); }
+  .meta-cell .value { font-size: 12px; color: var(--text-mid); margin-top: 3px; line-height: 1.45; }
+
+  .tabs { display: flex; border-bottom: 1px solid var(--border); }
+  .tab-btn { flex: 1; padding: 13px 16px; border: none; background: transparent; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--text-light); border-bottom: 3px solid transparent; transition: all .2s; font-family: inherit; }
+  .tab-btn:hover { background: #fafbfd; }
+  .tab-btn.active { border-bottom-color: var(--accent); color: var(--accent); background: rgba(61,90,254,.03); }
+
+  .tab-content { padding: 24px; display: none; }
+  .tab-content.active { display: block; }
+  .tab-content h3 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 16px; }
+
+  .step { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .step-text .main { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.4; }
+  .step-text .sub { font-size: 12px; color: var(--text-light); margin-top: 3px; line-height: 1.5; }
+
+  .notes-text { font-size: 13px; color: var(--text-mid); line-height: 1.75; }
+
+  /* Tips Box */
+  .tips { background: #fefce8; border: 1px solid #fde68a; border-radius: 10px; padding: 18px; margin-bottom: 20px; }
+  .tips h3 { font-size: 13px; font-weight: 700; color: #854d0e; margin-bottom: 8px; }
+  .tips p { font-size: 12px; color: #713f12; line-height: 1.75; }
+  .tips strong { font-weight: 700; }
+
+  .footer { font-size: 11px; color: var(--text-light); line-height: 1.6; margin-top: 20px; }
+
+  @media print {
+    .header { background: #232946 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .card, .comp-wrap, .detail, .tips { break-inside: avoid; }
+  }
+  @media (max-width: 600px) {
+    .header h1 { font-size: 22px; }
+    .grid { grid-template-columns: 1fr; }
+    table { font-size: 11px; }
+    .meta-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="kicker">Deep Research Report · May 2026</div>
+    <h1>Play-to-Earn Reward Apps</h1>
+    <p>Non-crypto apps that pay gift cards, PayPal, Venmo & cash — with detailed step-by-step enrollment & redemption processes for each platform.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Comparison Table -->
+  <div class="comp-wrap">
+    <h2>Quick Comparison</h2>
+    <table>
+      <thead><tr><th>App</th><th>Min Payout</th><th>Main Payout</th><th>Avg Earnings</th><th>Speed</th><th>Platform</th></tr></thead>
+      <tbody id="comp-body"></tbody>
+    </table>
+    <div class="comp-hint">Click any row or card below for full enrollment & redemption details ↓</div>
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="grid" id="cards-grid"></div>
+
+  <!-- Detail Panel -->
+  <div class="detail" id="detail-panel"></div>
+
+  <!-- Tips -->
+  <div class="tips">
+    <h3>Tips for Maximizing Earnings</h3>
+    <p>
+      <strong>Stack multiple apps.</strong> Most game catalogs don't overlap — run Mistplay, JustPlay, and Freecash simultaneously for the same gaming session.<br>
+      <strong>Prioritize high-value game offers.</strong> On Swagbucks, KashKick, and Freecash, single game offers can pay $20–$133+ for reaching specific milestones.<br>
+      <strong>Check daily.</strong> Offer walls refresh frequently. High-paying offers go fast.<br>
+      <strong>Never deposit real money</strong> on skill-based gambling platforms (Pocket7Games, Skillz) unless you're experienced and can afford to lose it.<br>
+      <strong>Use PayPal over gift cards</strong> when available — it's more flexible and often has better conversion rates.<br>
+      <strong>Realistic expectations:</strong> Casual users earn $20–$80/month across apps. This supplements income; it doesn't replace it.<br>
+      <strong>Time to Value matters most.</strong> JustPlay and Freecash get you earning fastest. InboxDollars has the slowest first-payout due to the $15 threshold.
+    </p>
+  </div>
+
+  <div class="footer">
+    Sources: Official app documentation (Mistplay, JustPlay, Swagbucks, KashKick, Freecash, InboxDollars help centers), Google Play / App Store listings, FinanceBuzz, SideHustles.com, MoneyPantry, TheBudgetDiet, Firstcard.app reviews. Data current as of May 2026. Earnings vary by location, availability, and individual usage.
+  </div>
+</div>
+
+<script>
+const apps = [
+  {
+    id:"mistplay", name:"Mistplay", tagline:"The #1 loyalty program for mobile gamers",
+    platforms:"Android (primary) · iOS (US & Canada only)", payouts:"Gift Cards (Amazon, Visa, Google Play, PlayStation, Xbox, Target, Starbucks, Walmart) · PayPal Cash",
+    minPayout:"$0.50", avgEarnings:"$20–$80/mo", payoutSpeed:"Within 48 hrs", ageReq:"13+", availability:"US, Canada, select countries",
+    color:"#e74694",
+    enrollment:[
+      ["Download Mistplay from Google Play Store (Android) or App Store (iOS — US/Canada only)","Free download, no purchase required."],
+      ["Open the app and tap 'I'm New to Mistplay'","Launches the New User Experience. You can immediately browse and start playing before completing full sign-up."],
+      ["Play games and earn Units right away","Limited account — you can discover games and earn, but redeeming gift cards is locked until full registration."],
+      ["Complete full sign-up when prompted","When you try to access the Shop or Profile, you'll be asked to finish. Sign up with Google, Facebook, or email + password."],
+      ["Set up your gamer profile","Select preferred genres (RPG, puzzle, strategy, etc.) and online/solo preference. This personalizes your game list."],
+      ["Browse games and tap Download","Games install through Mistplay. The list rotates — different titles appear on different days."],
+      ["Play to hit checkpoints and complete missions","Earn Units for in-game milestones. 2-hour earning cap per game per day."]
+    ],
+    redemption:[
+      ["Accumulate enough Units for a reward","Check the Shop tab. ~1,800 Units = $5 gift card."],
+      ["Go to the Shop tab and select your reward","Choose from 20+ brands. PayPal offers a better Units-per-dollar rate than gift cards."],
+      ["First-time: Complete identity verification","Record a brief selfie video (~30 seconds). One-time step only."],
+      ["Submit your redemption request","Order shows as 'Pending' initially."],
+      ["Receive reward within 48 hours","Gift card code or PayPal payment arrives via email. Most within 24 hrs. Check spam if not received."]
+    ],
+    notes:"iOS version (2025) has a more limited earning model due to Apple's tracking restrictions. As of 2026, Mistplay uses checkpoint-based rewards only (no playtime points). Has distributed over $100M in total rewards."
+  },
+  {
+    id:"justplay", name:"JustPlay", tagline:"Fast, fair, and fun — cash out every 3 hours",
+    platforms:"Android (primary) · iOS (US only)", payouts:"PayPal Cash · Gift Cards (10+ brands) · Charitable Donations",
+    minPayout:"$0.50", avgEarnings:"$8–$25/mo", payoutSpeed:"Instant–1 hour", ageReq:"13+", availability:"US primarily",
+    color:"#10b981",
+    enrollment:[
+      ["Download JustPlay from Google Play Store (or App Store)","Requires Android 7+ or iOS 16+. Free, no purchase required."],
+      ["Open the app — no account creation needed to start","Unlike most apps, JustPlay lets you play and earn immediately. Welcome bonus of ~10,000 loyalty coins."],
+      ["Browse the curated game catalog inside JustPlay","Games listed with reward rates visible. Higher-paying games highlighted."],
+      ["Tap a game to download it through JustPlay","Game installs from your app store but is tracked through JustPlay."],
+      ["Play games to earn loyalty coins","Coins accumulate as you play and hit milestones. Optional surveys also earn coins."],
+      ["Cash-out window opens every 3 hours","You can cash out accumulated coins every 3 hours, even small amounts."]
+    ],
+    redemption:[
+      ["Open the app → go to balance / rewards section","Coin balance and dollar equivalent shown in real time."],
+      ["Tap Withdraw / Cash Out when the 3-hour window is open","Available payout amount displayed."],
+      ["Select PayPal or a gift card","PayPal most popular. 10+ gift card brands available."],
+      ["First-time: Complete selfie verification","Brief in-app selfie video, one-time only."],
+      ["For PayPal: Enter your PayPal email","Must be a valid, active PayPal account."],
+      ["Confirm and receive payout","PayPal transfers instant to 1 hour. No fees charged by JustPlay."]
+    ],
+    notes:"~40,000 coins ≈ $0.50 USD via PayPal. Daily cashouts are JustPlay's key differentiator. JustPlay earns through in-game ads and developer partnerships."
+  },
+  {
+    id:"swagbucks", name:"Swagbucks", tagline:"The OG — $832M+ paid since 2008",
+    platforms:"iOS · Android · Web · Browser Extension", payouts:"PayPal · Gift Cards (100+ brands) · Prepaid Visa/Mastercard",
+    minPayout:"$5 (500 SB)", avgEarnings:"$25–$100/mo", payoutSpeed:"Up to 10 biz days", ageReq:"13+", availability:"US, UK, CA, AU, DE +",
+    color:"#5b6abf",
+    enrollment:[
+      ["Go to Swagbucks.com or download the app (iOS/Android)","Also available as a Chrome browser extension for passive cashback."],
+      ["Click 'Sign Up Free'","No credit card or payment required."],
+      ["Enter email and create a password","Use a valid email you check regularly — needed for verification + rewards."],
+      ["Fill out basic profile info","Name, DOB, ZIP, gender. Helps match you with relevant surveys."],
+      ["Verify your email","Click confirmation link in inbox."],
+      ["Complete optional profile surveys for bonus SB","Demographic questions improve survey matching and earn bonus SB upfront."],
+      ["Start earning via surveys, shopping, videos, games, and daily tasks","Game offers can pay $3–$133+ each. 100 SB = $1."]
+    ],
+    redemption:[
+      ["Accumulate 500+ SB ($5 equivalent)","100 SB = $1. Track balance on app or site."],
+      ["Go to Rewards / Redeem page","Browse by category."],
+      ["Select reward type","PayPal cash, 100+ gift card brands, prepaid Visa/MC, sweepstakes, or charity."],
+      ["For PayPal: Ensure accounts match","Swagbucks name = PayPal name. Swagbucks email = PayPal email. PayPal must be bank-confirmed."],
+      ["Click 'Connect with PayPal' and sign in","First-time connection requires PayPal authorization."],
+      ["Submit redemption","Gift cards: email delivery within 10 biz days. PayPal: a few days after approval."],
+      ["Check for confirmation emails","From both Swagbucks and PayPal (for cash)."]
+    ],
+    notes:"Owned by Prodege, LLC. Operating since 2008, $832M+ total paid. Game offers are extremely lucrative ($20–$133+). Browser extension earns passive cashback on everyday shopping."
+  },
+  {
+    id:"kashkick", name:"KashKick", tagline:"Real dollars, not points — $18.9M paid in 2025",
+    platforms:"Web · Android App · iOS (mobile browser)", payouts:"PayPal · Venmo · Gift Cards (Kash Rewards) · Charity",
+    minPayout:"$10", avgEarnings:"$20–$50/mo", payoutSpeed:"24–48 hrs approval", ageReq:"18+", availability:"US only",
+    color:"#f59e0b",
+    enrollment:[
+      ["Go to KashKick.com or download from Google Play","Also works via mobile browser on iOS."],
+      ["Tap Sign Up → enter email + password","Must be US citizen or permanent resident with valid US address."],
+      ["Check promotional box if desired, tap Sign Up","Opts into notifications for high-paying offers."],
+      ["Verify your email","Click confirmation link."],
+      ["Browse your dashboard","Offers show exact dollar payouts — no points. 1 Kash = $1 USD."],
+      ["Pick from surveys, game offers, app signups, shopping tasks","Game offers are highest-paying ($20–$50+ each)."]
+    ],
+    redemption:[
+      ["Reach $10 minimum balance","Amounts shown in actual US dollars — no conversion math."],
+      ["Request a cashout","Select PayPal, Venmo, gift cards (Kash Rewards), or charity."],
+      ["First-time: Complete ID verification","Government ID (license/passport) + name, address, DOB, last 4 of SSN."],
+      ["Submit withdrawal","No fees. $15 earned = $15 received."],
+      ["Receive payment in 1–3 business days","Most approved in 24–48 hrs. PayPal same day after approval. Some offers need advertiser verification (14–31 extra days)."]
+    ],
+    notes:"Uniquely uses real dollars — no points system. 25% lifetime referral commission (highest in industry). Accounts deactivated after 90 days inactivity. Pays more per game offer than Swagbucks or InboxDollars."
+  },
+  {
+    id:"freecash", name:"Freecash", tagline:"79.6M+ users · Cashout in 3 hours",
+    platforms:"Web (freecash.com) · Android App", payouts:"PayPal · Bank Transfer · Gift Cards · Prepaid Debit · Visa · Crypto",
+    minPayout:"$5 first (then $0.10+)", avgEarnings:"$5–$20/day active", payoutSpeed:"PayPal: ~30 min", ageReq:"16+", availability:"Global",
+    color:"#22c55e",
+    enrollment:[
+      ["Go to Freecash.com → press green 'Sign Up' button","Free, no hidden fees. Also available as Android app."],
+      ["Choose signup: Email + password OR social login (Google/Facebook/Apple)","Social login is faster. Both work identically."],
+      ["Verify your email","Click verification link in inbox (if using email signup)."],
+      ["Land on your dashboard","Lite Mode (some regions) = game-testing offers only. Standard Mode = all offer types."],
+      ["Browse offers on the Earn page","Each offer shows exact coin payout. 1,000 coins = $1. Gold offers pay more."],
+      ["Pick an offer and complete the task","Download apps/games, complete surveys, sign up for trials, or watch videos. Most take 5–10 min."]
+    ],
+    redemption:[
+      ["Earn 5,000+ coins ($5) for first withdrawal","After first cashout, minimum drops to as low as $0.10."],
+      ["First-time: Complete ID verification","Must be 16+ with government-issued ID."],
+      ["Go to Cashout page (freecash.com/cashout)","Click your balance in top-right corner."],
+      ["Choose withdrawal method","PayPal & bank transfers: ~5% fee. Gift cards & crypto: free."],
+      ["For PayPal: Select amount, tick boxes, press green Withdraw","Directed to Tremendous portal (or legacy Tango)."],
+      ["Confirm PayPal email in portal","Tremendous: confirm address, payment sends automatically. Tango: claim via email button."],
+      ["Receive payment","Most PayPal within 30 min. Bank transfer: 3–5 business days."]
+    ],
+    notes:"Available globally with one of the lowest thresholds. $2.9M+ paid out, 4.5-star Trustpilot. Lite Mode regions only see game offers; Level 20 unlocks Standard Mode."
+  },
+  {
+    id:"inboxdollars", name:"InboxDollars", tagline:"$80M+ paid since 2000 — real dollars, not points",
+    platforms:"Web · iOS · Android", payouts:"PayPal · Visa/MC Prepaid · Amex · e-Gift Cards",
+    minPayout:"$15 first (then $10)", avgEarnings:"$10–$40/mo", payoutSpeed:"Several biz days", ageReq:"18+", availability:"US primarily",
+    color:"#3b82f6",
+    enrollment:[
+      ["Go to InboxDollars.com or download the app (iOS/Android)","Free to join."],
+      ["Click 'Sign Up' or 'Join Now'","Register via website or app."],
+      ["Enter email, name, and password","Use a real email — you'll receive PaidEmails that earn money."],
+      ["Confirm your email","Click verification link. You immediately receive a $5 signup bonus."],
+      ["Complete a profile survey","Age, gender, income, interests. Improves survey matching."],
+      ["Start earning: surveys, PaidEmails, videos, game offers, Offer Wall, Scratch & Win","Surveys pay $0.10–$5+. Game offers are the fastest earners."]
+    ],
+    redemption:[
+      ["Reach $15 for first cashout","$5 signup bonus counts toward this. After first withdrawal, minimum drops to $10."],
+      ["Navigate to Cashout / Redeem section","Available in app and website."],
+      ["Select payout method","PayPal, Visa prepaid, Mastercard prepaid, Amex, e-gift cards. First cashout may have higher minimums ($30 MC). Lower amounts unlock after."],
+      ["Submit withdrawal request","No fees from InboxDollars (PayPal may charge their own)."],
+      ["Receive payment","PayPal & e-gift cards: several business days. Prepaid cards may arrive faster."]
+    ],
+    notes:"Founded 2000, one of the oldest platforms ($80M+ paid). All earnings in real US dollars. $15 first-cashout threshold is higher than competitors. PaidEmails less frequent in recent years. Game offers on the Offer Wall are the fastest path to earning."
+  },
+  {
+    id:"pocket7", name:"Pocket7Games", tagline:"Skill-based cash tournaments — Solitaire, Bingo, Bubble Shooter",
+    platforms:"iOS · Android", payouts:"PayPal · Apple Pay · Venmo · Visa Direct",
+    minPayout:"~$1–$2", avgEarnings:"Varies (can lose money)", payoutSpeed:"1–5 biz days", ageReq:"18+", availability:"Worldwide (restricted states)",
+    color:"#8b5cf6",
+    enrollment:[
+      ["Download from App Store (iOS) or Google Play (Android)","Free download. Don't use unofficial APKs."],
+      ["Open app — no account needed to browse","Explore games and play practice matches without signing up."],
+      ["Create account to play for real money","Sign in with email, Apple ID, Google, or Facebook."],
+      ["Receive welcome bonus offer","Offers pop up as you play (e.g., $7.50 bonus on $5 deposit). Better offers may appear later."],
+      ["Choose a game","Bingo Clash, Solitaire Clash, Bubble Buzz, 2048, and more. Free practice modes available."],
+      ["Play free tournaments or deposit for cash games","Daily free-entry tournaments. Cash games require depositing ($5+ typical)."]
+    ],
+    redemption:[
+      ["Win cash in tournaments or head-to-head matches","Winnings go to real-money balance (separate from bonus cash)."],
+      ["Go to profile/wallet → tap Withdraw","Select withdrawal method."],
+      ["Choose: PayPal, Apple Pay, Venmo, or Visa Direct","Cash only — no gift cards."],
+      ["Enter payout details and confirm","PayPal email, Venmo username, etc."],
+      ["Receive payout in 1–5 business days","Visa Direct can be faster."]
+    ],
+    notes:"⚠️ IMPORTANT: This is skill-based gambling. Unlike other apps here, you CAN LOSE real money. You're wagering against real opponents. Confusing bonus/credit system. Cash games restricted in some US states (AZ, AR, CT, DE, IN, LA, ME, MT, SC, SD, TN). Best for skilled, competitive players only."
+  },
+  {
+    id:"mode", name:"Mode Earn App", tagline:"Earn from games, music, news & more",
+    platforms:"Android", payouts:"PayPal · Gift Cards (Amazon, etc.) · Crypto",
+    minPayout:"$5", avgEarnings:"$5–$30/mo", payoutSpeed:"1–7 biz days", ageReq:"13+", availability:"Worldwide",
+    color:"#f97316",
+    enrollment:[
+      ["Download Mode Earn App from Google Play Store","Free, Android only."],
+      ["Create an account","Sign up with email or Google."],
+      ["Set up preferences","Choose activities: gaming, music, news, videos, surveys."],
+      ["Start earning through multiple activity types","Play games, listen to music, watch videos, read news, surveys, and even charging your phone."],
+      ["Accumulate points toward rewards","Points earned passively and actively. Lock-screen feature boosts earnings."]
+    ],
+    redemption:[
+      ["Reach minimum threshold (~$5)","For most gift cards and PayPal."],
+      ["Go to Rewards section","Select from PayPal, Amazon gift cards, or crypto."],
+      ["Submit redemption request","Enter PayPal email or select gift card."],
+      ["Receive reward in 1–7 business days","PayPal tends to be faster."]
+    ],
+    notes:"Broader than gaming — music, news, and videos earn passively. Lock-screen feature (Mode Phone) adds bonus earnings. Lower total earnings than gaming-focused apps but requires very little active effort."
+  }
+];
+
+// Render comparison table
+const compBody = document.getElementById('comp-body');
+apps.forEach(a => {
+  const tr = document.createElement('tr');
+  tr.onclick = () => openDetail(a.id);
+  tr.innerHTML = `
+    <td><span class="dot" style="background:${a.color}"></span>${a.name}</td>
+    <td>${a.minPayout}</td>
+    <td style="font-size:11px">${a.payouts.split('·')[0].trim()}</td>
+    <td style="font-size:11px">${a.avgEarnings}</td>
+    <td style="font-size:11px">${a.payoutSpeed}</td>
+    <td style="font-size:11px">${a.platforms.split('·')[0].trim()}</td>
+  `;
+  compBody.appendChild(tr);
+});
+
+// Render cards
+const grid = document.getElementById('cards-grid');
+apps.forEach(a => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.id = 'card-' + a.id;
+  card.onclick = () => openDetail(a.id);
+  card.innerHTML = `
+    <div class="card-top">
+      <span class="card-name">${a.name}</span>
+      <span class="dot" style="background:${a.color}; width:10px; height:10px;"></span>
+    </div>
+    <div class="card-tag">${a.tagline}</div>
+    <div class="card-badges">
+      <span class="badge" style="background:${a.color}18; color:${a.color}">Min: ${a.minPayout}</span>
+      <span class="badge" style="background:#f1f5f9; color:#475569">${a.platforms.split('·')[0].trim()}</span>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+let currentApp = null;
+let currentTab = 'enrollment';
+
+function openDetail(id) {
+  if (currentApp === id) { closeDetail(); return; }
+  currentApp = id;
+  currentTab = 'enrollment';
+  document.querySelectorAll('.card').forEach(c => { c.classList.remove('active'); c.style.borderColor = ''; });
+  const a = apps.find(x => x.id === id);
+  const cardEl = document.getElementById('card-' + id);
+  if (cardEl) { cardEl.classList.add('active'); cardEl.style.borderColor = a.color; }
+  renderDetail(a);
+  document.getElementById('detail-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closeDetail() {
+  currentApp = null;
+  document.querySelectorAll('.card').forEach(c => { c.classList.remove('active'); c.style.borderColor = ''; });
+  document.getElementById('detail-panel').classList.remove('open');
+}
+
+function switchTab(tab, app) {
+  currentTab = tab;
+  renderDetail(app);
+}
+
+function renderSteps(steps, color) {
+  return steps.map((s, i) => `
+    <div class="step">
+      <div class="step-num" style="background:${color}18; color:${color}">${i + 1}</div>
+      <div class="step-text">
+        <div class="main">${s[0]}</div>
+        <div class="sub">${s[1]}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderDetail(a) {
+  const panel = document.getElementById('detail-panel');
+  panel.className = 'detail open';
+  const tabClass = (t) => currentTab === t ? 'tab-btn active' : 'tab-btn';
+  const contentClass = (t) => currentTab === t ? 'tab-content active' : 'tab-content';
+
+  panel.innerHTML = `
+    <div class="detail-header" style="background:linear-gradient(135deg, ${a.color}08, ${a.color}03)">
+      <div>
+        <h2 style="color:${a.color}">${a.name}</h2>
+        <div class="subtitle">${a.tagline}</div>
+      </div>
+      <button class="close-btn" onclick="closeDetail()">✕ Close</button>
+    </div>
+    <div class="meta-grid">
+      <div class="meta-cell"><div class="label">Platforms</div><div class="value">${a.platforms}</div></div>
+      <div class="meta-cell"><div class="label">Payout Methods</div><div class="value">${a.payouts}</div></div>
+      <div class="meta-cell"><div class="label">Min Payout</div><div class="value">${a.minPayout}</div></div>
+      <div class="meta-cell"><div class="label">Avg Earnings</div><div class="value">${a.avgEarnings}</div></div>
+      <div class="meta-cell"><div class="label">Payout Speed</div><div class="value">${a.payoutSpeed}</div></div>
+      <div class="meta-cell"><div class="label">Age / Availability</div><div class="value">${a.ageReq} · ${a.availability}</div></div>
+    </div>
+    <div class="tabs">
+      <button class="${tabClass('enrollment')}" onclick="switchTab('enrollment', apps.find(x=>x.id==='${a.id}'))">📋 Enrollment Process</button>
+      <button class="${tabClass('redemption')}" onclick="switchTab('redemption', apps.find(x=>x.id==='${a.id}'))">💰 Redemption Process</button>
+      <button class="${tabClass('notes')}" onclick="switchTab('notes', apps.find(x=>x.id==='${a.id}'))">📌 Key Notes</button>
+    </div>
+    <div class="${contentClass('enrollment')}">
+      <h3 style="color:${a.color}">How to Sign Up — Step by Step</h3>
+      ${renderSteps(a.enrollment, a.color)}
+    </div>
+    <div class="${contentClass('redemption')}">
+      <h3 style="color:${a.color}">How to Cash Out — Step by Step</h3>
+      ${renderSteps(a.redemption, a.color)}
+    </div>
+    <div class="${contentClass('notes')}">
+      <h3 style="color:${a.color}">Important Notes & Tips</h3>
+      <div class="notes-text">${a.notes}</div>
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
